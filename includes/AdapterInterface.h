@@ -1,15 +1,15 @@
-#ifndef ARDUINOINTERFACE_H
-#define ARDUINOINTERFACE_H
+#ifndef ADAPTERINTERFACE_H
+#define ADAPTERINTERFACE_H
 
 #include <stdint.h>
 
 namespace bveing
 {
 
-	class ArduinoInterface
+	class AdapterInterface
 	{
 	public:
-		virtual ~ArduinoInterface() {};
+		virtual ~AdapterInterface() {};
 		
 		virtual void pinMode(uint8_t pin, uint8_t mode) = 0;
 		
@@ -26,4 +26,4 @@ namespace bveing
 
 }
 
-#endif // ARDUINOINTERFACE_H
+#endif // ADAPTERINTERFACE_H

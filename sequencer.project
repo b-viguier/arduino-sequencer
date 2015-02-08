@@ -21,12 +21,12 @@
   <Dependencies/>
   <VirtualDirectory Name="src">
     <File Name="main.cpp"/>
+    <File Name="ConsoleAdapter.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="includes">
     <File Name="includes/Arduino.h"/>
-    <File Name="includes/ArduinoInterface.h"/>
-    <File Name="includes/ArduinoConsole.h"/>
-    <File Name="includes/ArduinoConsole.cpp"/>
+    <File Name="includes/AdapterInterface.h"/>
+    <File Name="includes/ConsoleAdapter.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

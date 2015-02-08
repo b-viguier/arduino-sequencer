@@ -1,19 +1,19 @@
-#include "ArduinoConsole.h"
+#include "ConsoleAdapter.h"
 
 #include <ostream>
 
 using namespace bveing;
 
-ArduinoConsole::ArduinoConsole(std::ostream& output)
+ConsoleAdapter::ConsoleAdapter(std::ostream& output)
 : _output(output)
 {
 }
 
-ArduinoConsole::~ArduinoConsole()
+ConsoleAdapter::~ConsoleAdapter()
 {
 }
 
-void ArduinoConsole::pinMode(uint8_t pin, uint8_t mode)
+void ConsoleAdapter::pinMode(uint8_t pin, uint8_t mode)
 {
 	_output 
 		<< __func__ 
@@ -22,7 +22,7 @@ void ArduinoConsole::pinMode(uint8_t pin, uint8_t mode)
 		<< std::endl
 	;
 }
-void ArduinoConsole::digitalWrite(uint8_t pin, uint8_t val)
+void ConsoleAdapter::digitalWrite(uint8_t pin, uint8_t val)
 {
 	_output 
 		<< __func__ 
@@ -31,7 +31,7 @@ void ArduinoConsole::digitalWrite(uint8_t pin, uint8_t val)
 		<< std::endl
 	;
 }
-int ArduinoConsole::digitalRead(uint8_t pin)
+int ConsoleAdapter::digitalRead(uint8_t pin)
 {
 	_output 
 		<< __func__ 
@@ -40,7 +40,7 @@ int ArduinoConsole::digitalRead(uint8_t pin)
 	;
 	return 0;
 }
-int ArduinoConsole::analogRead(uint8_t pin)
+int ConsoleAdapter::analogRead(uint8_t pin)
 {
 	_output 
 		<< __func__ 
@@ -49,7 +49,7 @@ int ArduinoConsole::analogRead(uint8_t pin)
 	;
 	return 0;
 }
-void ArduinoConsole::analogReference(uint8_t mode)
+void ConsoleAdapter::analogReference(uint8_t mode)
 {
 	_output 
 		<< __func__ 
@@ -57,7 +57,7 @@ void ArduinoConsole::analogReference(uint8_t mode)
 		<< std::endl
 	;
 }
-void ArduinoConsole::analogWrite(uint8_t pin, int value)
+void ConsoleAdapter::analogWrite(uint8_t pin, int value)
 {
 	_output 
 		<< __func__ 

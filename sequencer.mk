@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/includes_ArduinoConsole.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) 
 
 
 
@@ -95,13 +95,13 @@ $(IntermediateDirectory)/main.cpp$(DependSuffix): main.cpp
 $(IntermediateDirectory)/main.cpp$(PreprocessSuffix): main.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.cpp$(PreprocessSuffix) "main.cpp"
 
-$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(ObjectSuffix): includes/ArduinoConsole.cpp $(IntermediateDirectory)/includes_ArduinoConsole.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/benoit/Dev/arduino/sequencer/includes/ArduinoConsole.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(DependSuffix): includes/ArduinoConsole.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(DependSuffix) -MM "includes/ArduinoConsole.cpp"
+$(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix): ConsoleAdapter.cpp $(IntermediateDirectory)/ConsoleAdapter.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/benoit/Dev/arduino/sequencer/ConsoleAdapter.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/ConsoleAdapter.cpp$(DependSuffix): ConsoleAdapter.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/ConsoleAdapter.cpp$(DependSuffix) -MM "ConsoleAdapter.cpp"
 
-$(IntermediateDirectory)/includes_ArduinoConsole.cpp$(PreprocessSuffix): includes/ArduinoConsole.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/includes_ArduinoConsole.cpp$(PreprocessSuffix) "includes/ArduinoConsole.cpp"
+$(IntermediateDirectory)/ConsoleAdapter.cpp$(PreprocessSuffix): ConsoleAdapter.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ConsoleAdapter.cpp$(PreprocessSuffix) "ConsoleAdapter.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

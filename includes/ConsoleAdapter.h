@@ -1,18 +1,18 @@
 #ifndef ARDUINOCONSOLE_H
 #define ARDUINOCONSOLE_H
 
-#include <ArduinoInterface.h>
+#include <AdapterInterface.h>
 #include <iosfwd>
 
 
 namespace bveing
 {
 
-class ArduinoConsole : public ArduinoInterface
+class ConsoleAdapter : public AdapterInterface
 {
 public:
-	ArduinoConsole(std::ostream& output);
-	~ArduinoConsole();
+	ConsoleAdapter(std::ostream& output);
+	~ConsoleAdapter();
 	
 	void pinMode(uint8_t pin, uint8_t mode);
 	
