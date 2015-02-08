@@ -1,15 +1,10 @@
 #ifndef Arduino_h
 #define Arduino_h
 
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
-#include <avr/pgmspace.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
-#include "binary.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -122,16 +117,6 @@ void loop(void);
 
 #define analogInPinToBit(P) (P)
 
-// On the ATmega1280, the addresses of some of the port registers are
-// greater than 255, so we can't store them in uint8_t's.
-extern const uint16_t PROGMEM port_to_mode_PGM[];
-extern const uint16_t PROGMEM port_to_input_PGM[];
-extern const uint16_t PROGMEM port_to_output_PGM[];
-
-extern const uint8_t PROGMEM digital_pin_to_port_PGM[];
-// extern const uint8_t PROGMEM digital_pin_to_bit_PGM[];
-extern const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[];
-extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 // Get the bit location within the hardware port of the given virtual pin.
 // This comes from the pins_*.c file for the active board configuration.
@@ -188,9 +173,6 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #endif
 
 #ifdef __cplusplus
-#include "WCharacter.h"
-#include "WString.h"
-#include "HardwareSerial.h"
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);
@@ -210,6 +192,5 @@ long map(long, long, long, long, long);
 
 #endif
 
-#include "pins_arduino.h"
 
 #endif

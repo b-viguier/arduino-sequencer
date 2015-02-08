@@ -1,13 +1,12 @@
-#include <iostream>
+#include <Arduino.h>
 
-#include "ConsoleAdapter.h"
-
-int main(int argc, char **argv)
+int main(void)
 {
-	
-	bveing::ConsoleAdapter arduino(std::cout);
-	
-	arduino.pinMode(5, 1);
-	
+	setup();
+    
+	for (;;) {
+		loop();
+	}
+        
 	return 0;
 }

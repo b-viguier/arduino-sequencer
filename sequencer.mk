@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) 
 
 
 
@@ -102,6 +102,14 @@ $(IntermediateDirectory)/ConsoleAdapter.cpp$(DependSuffix): ConsoleAdapter.cpp
 
 $(IntermediateDirectory)/ConsoleAdapter.cpp$(PreprocessSuffix): ConsoleAdapter.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/ConsoleAdapter.cpp$(PreprocessSuffix) "ConsoleAdapter.cpp"
+
+$(IntermediateDirectory)/arduino.cpp$(ObjectSuffix): arduino.cpp $(IntermediateDirectory)/arduino.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/benoit/Dev/arduino/sequencer/arduino.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/arduino.cpp$(DependSuffix): arduino.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/arduino.cpp$(DependSuffix) -MM "arduino.cpp"
+
+$(IntermediateDirectory)/arduino.cpp$(PreprocessSuffix): arduino.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/arduino.cpp$(PreprocessSuffix) "arduino.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
