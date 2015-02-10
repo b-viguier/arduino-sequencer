@@ -22,6 +22,11 @@ void digitalWrite(uint8_t pin, uint8_t val)
 	states[pin] = val;
 }
 
+void analogWrite(uint8_t pin, int value)
+{
+	states[pin] = value;
+}
+
 int main(void)
 {
 	
@@ -33,7 +38,7 @@ int main(void)
 	for (;;) {
 		loop();
 		for(uint i =0; i < nb_pins; ++i) {
-			std::cout<< (states[i] ? 'O' : '.') << " ";
+			std::cout<< (unsigned int)states[i] << "   ";
 		}
 		std::cout << millis() << "\r";
 	}
