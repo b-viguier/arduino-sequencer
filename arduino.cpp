@@ -29,18 +29,18 @@ void loop()
 	
 	// Flash
 	const unsigned long sub_beat = (m / FLASH_TIME ) % 32;
-	if( sub_beat % 2) {
-		digitalWrite(LED_B, LOW);
-		digitalWrite(LED_R, LOW);
-		return;
+	uint8_t value_r = LOW, value_b = LOW;
+	if( sub_beat % 2 == 0 ) {
+		
+		const unsigned long beat = sub_beat / 4;
+		/**
+		 * 0011223344556677
+		 * BB  BB  BB  BBBB
+		 *   RR  RR  RRRRRR
+		 **/
+		value_b = (!(beat % 2) || beat == 7) ? HIGH : LOW;
+		value_r = (  beat % 2  || beat == 6) ? HIGH : LOW;
 	}
-	const unsigned long beat = sub_beat / 4;
-	
-	/**
-	 * 0011223344556677
-	 * BB  BB  BB  BBBB
-	 *   RR  RR  RRRRRR
-	 **/
-	digitalWrite(LED_B, (!(beat % 2) || beat == 7) ? HIGH : LOW);
-	digitalWrite(LED_R, (  beat % 2  || beat == 6) ? HIGH : LOW);
+	digitalWrite(LED_B, value_b);
+	digitalWrite(LED_R, value_r);
 }
