@@ -2,7 +2,7 @@
 #include <sys/time.h>
 #include <iostream>
 
-uint8_t states[8] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
+int states[8] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
 unsigned long millis_start;
 
 unsigned long absolute_millis(void)
@@ -38,7 +38,7 @@ int main(void)
 	for (;;) {
 		loop();
 		for(uint i =0; i < nb_pins; ++i) {
-			std::cout<< (unsigned int)states[i] << "   ";
+			std::cout<< states[i] << "   ";
 		}
 		std::cout << millis() << "\r";
 	}
