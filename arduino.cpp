@@ -9,14 +9,23 @@ void setup()
 #define FLASH_TIME 80
 
 #define LED_CLIGNO 5
-#define CLIGNO_TIME 400
+#define CLIGNO_TIME 500
+//Dans l'intervall ]0, 1]
+#define CLIGNO_TRANSITION 0.3
 
 void loop()
 {
 	const unsigned long m = millis();
 	
 	// Cligno
-	analogWrite(LED_CLIGNO, (1 + sin( m * PI / CLIGNO_TIME)) * 128 );
+	const double signal_raw = sin( m * PI / CLIGNO_TIME);
+	const double signal_max = max(- CLIGNO_TRANSITION, signal_raw);
+	const double signal_min = min( CLIGNO_TRANSITION, signal_max);
+	analogWrite(
+		LED_CLIGNO,
+		( 0.5 + signal_min / (2. * CLIGNO_TRANSITION) )
+		* 255
+	);
 	
 	// Flash
 	const unsigned long sub_beat = (m / FLASH_TIME ) % 32;
