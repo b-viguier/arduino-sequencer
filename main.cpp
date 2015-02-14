@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <sys/time.h>
-#include <iostream>
+
+#include <ncurses.h>	
 
 int states[8] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
 unsigned long millis_start;
@@ -29,19 +30,33 @@ void analogWrite(uint8_t pin, int value)
 
 int main(void)
 {
-	
+	WINDOW *wnd = initscr();
+	cbreak();
+	noecho();
+	nodelay(wnd, true);
+	clear();
+
 	const uint nb_pins = (sizeof(states)/sizeof(*states));
 	millis_start = absolute_millis();
 	
 	setup();
     
+	char d;
 	for (;;) {
+		d = getch();
+		if( d == 'q') {
+			break;
+		}
 		loop();
 		for(uint i =0; i < nb_pins; ++i) {
-			std::cout<< states[i] << "   ";
+			mvprintw(i,0, "%d", states[i]);
+			clrtoeol();
 		}
-		std::cout << millis() << "\r";
+		mvprintw(nb_pins,0, "%d", millis());
+		refresh();
+
 	}
+	endwin();
         
 	return 0;
 }
