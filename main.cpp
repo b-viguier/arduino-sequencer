@@ -1,7 +1,10 @@
+#include "main.h"
 #include <Arduino.h>
 #include <sys/time.h>
 
-#include <ncurses.h>	
+#include <ncurses.h>
+
+char last_input;
 
 int states[8] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
 unsigned long millis_start;
@@ -41,10 +44,9 @@ int main(void)
 	
 	setup();
     
-	char d;
 	for (;;) {
-		d = getch();
-		if( d == 'q') {
+		last_input = getch();
+		if( last_input == 'q') {
 			break;
 		}
 		loop();

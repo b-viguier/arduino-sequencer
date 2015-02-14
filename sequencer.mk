@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix) 
 
 
 
@@ -110,6 +110,14 @@ $(IntermediateDirectory)/arduino.cpp$(DependSuffix): arduino.cpp
 
 $(IntermediateDirectory)/arduino.cpp$(PreprocessSuffix): arduino.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/arduino.cpp$(PreprocessSuffix) "arduino.cpp"
+
+$(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix): IRremote.cpp $(IntermediateDirectory)/IRremote.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/benoit/Dev/arduino/sequencer/IRremote.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/IRremote.cpp$(DependSuffix): IRremote.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/IRremote.cpp$(DependSuffix) -MM "IRremote.cpp"
+
+$(IntermediateDirectory)/IRremote.cpp$(PreprocessSuffix): IRremote.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/IRremote.cpp$(PreprocessSuffix) "IRremote.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

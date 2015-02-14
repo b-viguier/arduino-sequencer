@@ -23,11 +23,14 @@
     <File Name="main.cpp"/>
     <File Name="ConsoleAdapter.cpp"/>
     <File Name="arduino.cpp"/>
+    <File Name="IRremote.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="includes">
     <File Name="includes/Arduino.h"/>
     <File Name="includes/AdapterInterface.h"/>
     <File Name="includes/ConsoleAdapter.h"/>
+    <File Name="includes/IRremote.h"/>
+    <File Name="includes/main.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
