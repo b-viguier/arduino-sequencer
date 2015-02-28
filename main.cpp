@@ -4,7 +4,7 @@
 
 #include <ncurses.h>
 
-char last_input;
+unsigned long last_input;
 
 int states[8] = {LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW};
 unsigned long millis_start;

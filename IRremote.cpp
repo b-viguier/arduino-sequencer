@@ -18,10 +18,10 @@ void IRrecv::resume()
 int IRrecv::decode(decode_results* results)
 {
 	switch(last_input) {
-		case KEY_LEFT:
+		case 0x000044:	//KEY_LEFT
 			results->value = 0xFF22DD;
 			break;
-		case KEY_RIGHT:
+		case 0x000043:	//KEY_RIGHT
 			results->value = 0xFFC23D;
 			break;
 		case ' ':
