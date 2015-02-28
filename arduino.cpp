@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <IRremote.h>
+#include "Sequence.h"
+
 
 IRrecv irrecv(3);
 decode_results results;
@@ -13,59 +15,66 @@ void setup()
 #define LED_R 2
 #define FLASH_TIME 80
 
-#define LED_CLIGNO 5
+#define LED_BLINK_LEFT 5
+#define LED_BLINK_RIGHT 6
+
 #define CLIGNO_TIME 500
 //Dans l'intervall ]0, 1]
 #define CLIGNO_TRANSITION 0.3
 
-bool cligno = false;
-bool strobe = false;
+PatternSequence
+	leftStrobe ("1100110011001111", FLASH_TIME),
+	rightStrobe("0011001100111111", FLASH_TIME);
+ConstantSequence
+	on(1),
+	off(0);
+BlinkSequence blinker(CLIGNO_TIME, CLIGNO_TRANSITION);
+
+Sequence* leftSequences[] = {&off, &on, &leftStrobe};
+Sequence* rightSequences[] = {&off, &on, &rightStrobe};
+int currentSequence = 0;
+
+Sequence* blinkerStates[] = {&off, &blinker};
+int leftBlinker  = 0;
+int rightBlinker = 0;
 
 void loop()
 {
+	const unsigned long m = millis();
+	
 	if (irrecv.decode(&results))
 	{
 		switch(results.value) {
 			case 0xFF02FD:
-				cligno = !cligno;
+				leftBlinker = rightBlinker =
+					(leftBlinker && rightBlinker) ? 0 : 1;
+				blinker.start = m;
+				break;
+			case 0xFF22DD: 
+				leftBlinker = (leftBlinker+1)%2;
+				rightBlinker = 0;
+				blinker.start = m;
+				break;
+			case 0xFFC23D:
+				leftBlinker = 0;
+				rightBlinker = (rightBlinker+1)%2;
+				blinker.start = m;
 				break;
 			case 0xFF6897:
-				strobe = !strobe;
+				currentSequence = (currentSequence+1) % 3;
+				leftSequences[currentSequence]->start =
+					rightSequences[currentSequence]->start =
+						m;
 				break;
 		}
 		irrecv.resume();
 	}
-	const unsigned long m = millis();
 	
 	// Cligno
-	if(cligno) {
-		const double signal_raw = sin( m * PI / CLIGNO_TIME);
-		const double signal_max = max(- CLIGNO_TRANSITION, signal_raw);
-		const double signal_min = min( CLIGNO_TRANSITION, signal_max);
-		analogWrite(
-			LED_CLIGNO,
-			( 0.5 + signal_min / (2. * CLIGNO_TRANSITION) )
-			* 255
-		);
-	}
+	analogWrite(LED_BLINK_LEFT, blinkerStates[leftBlinker]->val(m));
+	analogWrite(LED_BLINK_RIGHT, blinkerStates[rightBlinker]->val(m));
 	
 	// Flash
-	if(strobe) {
-		const unsigned long sub_beat = (m / FLASH_TIME ) % 32;
-		uint8_t value_r = LOW, value_b = LOW;
-		if( sub_beat % 2 == 0 ) {
-			
-			const unsigned long beat = sub_beat / 4;
-			/**
-			 * 0011223344556677
-			 * BB  BB  BB  BBBB
-			 *   RR  RR  RRRRRR
-			 **/
-			value_b = (!(beat % 2) || beat == 7) ? HIGH : LOW;
-			value_r = (  beat % 2  || beat == 6) ? HIGH : LOW;
-		}
-		digitalWrite(LED_B, value_b);
-		digitalWrite(LED_R, value_r);
-		
-	}
+	digitalWrite(LED_B, leftSequences[currentSequence]->val(m));
+	digitalWrite(LED_R, rightSequences[currentSequence]->val(m));
 }

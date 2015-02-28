@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Benoit
-Date                   :=02/14/15
+Date                   :=02/28/15
 CodeLitePath           :="/home/benoit/.codelite"
 LinkerName             :=/usr/bin/g++ 
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/ConsoleAdapter.cpp$(ObjectSuffix) $(IntermediateDirectory)/arduino.cpp$(ObjectSuffix) $(IntermediateDirectory)/IRremote.cpp$(ObjectSuffix) $(IntermediateDirectory)/Sequence.cpp$(ObjectSuffix) 
 
 
 
@@ -118,6 +118,14 @@ $(IntermediateDirectory)/IRremote.cpp$(DependSuffix): IRremote.cpp
 
 $(IntermediateDirectory)/IRremote.cpp$(PreprocessSuffix): IRremote.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/IRremote.cpp$(PreprocessSuffix) "IRremote.cpp"
+
+$(IntermediateDirectory)/Sequence.cpp$(ObjectSuffix): Sequence.cpp $(IntermediateDirectory)/Sequence.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/benoit/Dev/arduino/sequencer/Sequence.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Sequence.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Sequence.cpp$(DependSuffix): Sequence.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Sequence.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Sequence.cpp$(DependSuffix) -MM "Sequence.cpp"
+
+$(IntermediateDirectory)/Sequence.cpp$(PreprocessSuffix): Sequence.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Sequence.cpp$(PreprocessSuffix) "Sequence.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -24,6 +24,7 @@
     <File Name="ConsoleAdapter.cpp"/>
     <File Name="arduino.cpp"/>
     <File Name="IRremote.cpp"/>
+    <File Name="Sequence.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="includes">
     <File Name="includes/Arduino.h"/>
@@ -31,6 +32,7 @@
     <File Name="includes/ConsoleAdapter.h"/>
     <File Name="includes/IRremote.h"/>
     <File Name="includes/main.h"/>
+    <File Name="includes/Sequence.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
