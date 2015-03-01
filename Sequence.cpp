@@ -1,6 +1,19 @@
 #include "Sequence.h"
 #include <Arduino.h>
-#include <bitset>
+
+namespace {
+	unsigned long binaryStringToInt(const char* string)
+	{
+		unsigned long result = 0;
+		for(const char* current_digit = string; *current_digit; ++current_digit) {
+			result = result << 1;
+			if(*current_digit != '0') {
+				result++;
+			}
+		}
+		return result;
+	}
+}
 
 
 ConstantSequence::ConstantSequence(int value) : _value(value) {
@@ -11,7 +24,7 @@ int ConstantSequence::val(unsigned long time) {
 }
 
 PatternSequence::PatternSequence(const char* pattern, unsigned long beat_duration) 
-: _pattern(std::bitset<32>(std::string(pattern)).to_ulong())
+: _pattern(binaryStringToInt(pattern))
 , _beat_duration(beat_duration)
 , _double_beats(2*strlen(pattern))
 {
@@ -38,7 +51,7 @@ BlinkSequence::BlinkSequence(unsigned long duration, double transition)
 	
 int BlinkSequence::val(unsigned long time) {
 	const double signal_raw = sin( (time-start) * PI / _duration);
-	const double signal_max = std::max(- _transition, signal_raw);
-	const double signal_min = std::min( _transition, signal_max);
+	const double signal_max = max(- _transition, signal_raw);
+	const double signal_min = min( _transition, signal_max);
 	return (0.5 + signal_min / (2. * _transition))*255;
 }
